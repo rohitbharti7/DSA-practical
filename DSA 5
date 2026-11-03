@@ -1,0 +1,143 @@
+Stack
+#include <stdio.h>
+#define MAX 5
+int stack[MAX];
+int top = -1;
+
+void push(int value)
+{
+    if (top == MAX - 1)
+        printf("Stack Overflow.\n");
+    else
+    {
+        stack[++top] = value;
+        printf("Pushed %d to stack.\n", value);
+    }
+}
+
+void pop()
+{
+    if (top == -1)
+        printf("Stack Underflow.\n");
+    else
+    {
+        printf("Popped = %d\n", stack[top]);
+        top--;
+    }
+}
+
+void peek()
+{
+    if (top == -1)
+        printf("Stack is empty no peek.\n");
+    else
+        printf("%d\n", stack[top]);
+}
+
+void display()
+{
+    if (top == -1)
+        printf("Stack is empty.\n");
+    else
+    {
+        printf("Stack elements:\n");
+        for (int i = top; i >= 0; i--)
+        {
+            printf("%d\n", stack[i]);
+        }
+    }
+}
+
+int main()
+{
+    int n, value, i;
+    printf("Enter number of elements: ");
+    scanf("%d", &n);
+    printf("Enter elements: ");
+    for (i = 0; i < n; i++)
+    {
+        scanf("%d", &value);
+        push(value);
+    }
+
+    printf("\nCurrent Stack:\n");
+    display();
+    printf("\nPopping Elements:\n");
+    pop();
+    pop();
+    printf("\nStack After Popping:\n");
+    display();
+    printf("\nPeek of the stack is: ");
+    peek();
+
+    return 0;
+}
+
+Queue
+#include <stdio.h>
+#define MAX 5
+
+int queue[MAX];
+int front = -1;
+int rear = -1;
+
+void enqueue(int value)
+{
+    if (rear == MAX - 1)
+        printf("Queue Overflow.\n");
+    else
+    {
+        if (front == -1)
+            front = 0;
+        queue[++rear] = value;
+        printf("Inserted %d into queue.\n", value);
+    }
+}
+
+void dequeue()
+{
+    if (front == -1 || front > rear)
+        printf("Queue Underflow.\n");
+    else
+    {
+        printf("Deleted = %d\n", queue[front]);
+        front++;
+    }
+}
+
+void display()
+{
+    if (front == -1 || front > rear)
+        printf("Queue is empty.\n");
+    else
+    {
+        printf("Queue elements:\n");
+
+        for (int i = front; i <= rear; i++)
+        {
+            printf("%d\n", queue[i]);
+        }
+    }
+}
+
+int main()
+{
+    int n, value, i;
+    printf("Enter number of elements: ");
+    scanf("%d", &n);
+    printf("Enter elements: ");
+    for (i = 0; i < n; i++)
+    {
+        scanf("%d", &value);
+        enqueue(value);
+    }
+    printf("\nCurrent Queue:\n");
+    display();
+    printf("\nDequeuing Elements:\n");
+    dequeue();
+    dequeue();
+    printf("\nQueue After Dequeuing:\n");
+    display();
+
+    return 0;
+}
