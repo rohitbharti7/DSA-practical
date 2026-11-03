@@ -1,0 +1,71 @@
+#include <stdio.h>
+#include <stdlib.h>
+struct node
+{
+    int data;
+    struct node *left;
+    struct node *right;
+};
+struct node* createnode(int value)
+{
+    struct node* newnode;
+    newnode = (struct node*)malloc(sizeof(struct node));
+
+    newnode->data = value;
+    newnode->left = NULL;
+    newnode->right = NULL;
+
+    return newnode;
+}
+struct node* search(struct node* node, int value)
+{
+    if(node == NULL || node->data == value)
+        return node;
+
+    if(value < node->data)
+        return search(node->left, value);
+    else
+        return search(node->right, value);
+}
+void printinorder(struct node* node)
+{
+    if(node == NULL)
+        return;
+    printinorder(node->left);
+    printf("%d ", node->data);
+    printinorder(node->right);
+}
+int main()
+{
+    struct node* root;
+    struct node* result;
+    int value;
+    root = createnode(40);
+
+    root->left = createnode(30);
+    root->right = createnode(50);
+
+    root->left->left = createnode(25);
+    root->left->right = createnode(35);
+
+    root->right->left = createnode(45);
+    root->right->right = createnode(60);
+
+    root->left->left->left = createnode(15);
+    root->left->right->right = createnode(55);
+    root->right->right->right = createnode(70);
+
+    printf("Inorder Traversal: ");
+    printinorder(root);
+
+    printf("\nEnter value to search: ");
+    scanf("%d", &value);
+
+    result = search(root, value);
+
+    if(result != NULL)
+        printf("%d is found in the BST.\n", value);
+    else
+        printf("%d is not found in the BST.\n", value);
+    return 0;
+}
