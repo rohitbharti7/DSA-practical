@@ -1,0 +1,124 @@
+#include <stdio.h>
+
+struct student {
+    int roll;
+    char name[50];
+    float sgpa;
+};
+
+void create(struct student s[], int n) {
+    for (int i = 0; i < n; i++) {
+        printf("\nEnter Roll, Name and SGPA: ");
+        scanf("%d %s %f", &s[i].roll, s[i].name, &s[i].sgpa);
+    }
+}
+
+void display(struct student s[], int n) {
+    printf("\nStudent Records:\n");
+
+    for (int i = 0; i < n; i++) {
+        printf("%d\t%s\t%.2f\n",
+               s[i].roll, s[i].name, s[i].sgpa);
+    }
+}
+
+void modify(struct student s[], int n) {
+    int roll;
+
+    printf("\nEnter roll number to modify: ");
+    scanf("%d", &roll);
+
+    for (int i = 0; i < n; i++) {
+        if (s[i].roll == roll) {
+            printf("Enter new name and SGPA: ");
+            scanf("%s %f", s[i].name, &s[i].sgpa);
+            printf("Record modified!\n");
+            return;
+        }
+    }
+
+    printf("Record not found!\n");
+}
+
+void search(struct student s[], int n) {
+    int roll;
+
+    printf("\nEnter roll number to search: ");
+    scanf("%d", &roll);
+
+    for (int i = 0; i < n; i++) {
+        if (s[i].roll == roll) {
+            printf("Roll: %d\n", s[i].roll);
+            printf("Name: %s\n", s[i].name);
+            printf("SGPA: %.2f\n", s[i].sgpa);
+            return;
+        }
+    }
+
+    printf("Record not found!\n");
+}
+
+void sort(struct student s[], int n) {
+    struct student temp;
+
+    for (int i = 0; i < n - 1; i++) {
+        for (int j = 0; j < n - i - 1; j++) {
+            if (s[j].roll > s[j + 1].roll) {
+                temp = s[j];
+                s[j] = s[j + 1];
+                s[j + 1] = temp;
+            }
+        }
+    }
+
+    printf("Records sorted!\n");
+}
+
+int main() {
+    struct student s[100];
+    int n, choice;
+
+    printf("Enter number of students: ");
+    scanf("%d", &n);
+
+    create(s, n);
+
+    do {
+        printf("\n1. Display");
+        printf("\n2. Modify");
+        printf("\n3. Search");
+        printf("\n4. Sort");
+        printf("\n5. Exit");
+
+        printf("\nEnter choice: ");
+        scanf("%d", &choice);
+
+        switch (choice) {
+            case 1:
+                display(s, n);
+                break;
+
+            case 2:
+                modify(s, n);
+                break;
+
+            case 3:
+                search(s, n);
+                break;
+
+            case 4:
+                sort(s, n);
+                break;
+
+            case 5:
+                printf("Exit");
+                break;
+
+            default:
+                printf("Invalid choice!");
+        }
+
+    } while (choice != 5);
+
+    return 0;
+}
